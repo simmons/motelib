@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+	<TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="1"
+        android:shrinkColumns="1"
+	>
+	   <TableRow>
+            <TextView android:id="@+id/text1"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:padding="3dip"
+                android:text="NOTE:  Not all phones and all VNC servers support discovery."
+            />
+	   </TableRow>
+        <TableRow>
+		    <TextView android:id="@+id/text1"
+		        android:layout_column="1"
+	            android:layout_gravity="center_vertical"
+	            android:padding="3dip"
+                android:text="Select a device to configure:"
+		    />
+		    <ProgressBar
+		        android:id="@+id/progress"
+		        android:layout_gravity="center_vertical"
+	            style="?android:attr/android:progressBarStyleSmall"
+	            android:padding="3dip"
+	            android:gravity="right"
+				android:indeterminateOnly="true"
+	        />
+        </TableRow>
+    </TableLayout>
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+    >
+    </ListView>
+</LinearLayout>
