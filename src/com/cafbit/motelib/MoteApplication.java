@@ -18,5 +18,5 @@
 package com.cafbit.motelib;
 
 public interface MoteApplication {
-	public MoteContext getMoteContext();
+    public MoteContext getMoteContext();
 }

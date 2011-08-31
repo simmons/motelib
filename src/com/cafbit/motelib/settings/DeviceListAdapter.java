@@ -36,48 +36,48 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class DeviceListAdapter extends BaseAdapter {
-	
-	private Activity activity;
-	private LayoutInflater inflater;
-	private List<Device> devices;
-	
-	public DeviceListAdapter(Activity activity) {
-		init(activity, null);
-	}
+    
+    private Activity activity;
+    private LayoutInflater inflater;
+    private List<Device> devices;
+    
+    public DeviceListAdapter(Activity activity) {
+        init(activity, null);
+    }
 
-	public DeviceListAdapter(Activity activity, List<Device> devices) {
-		init(activity, devices);
-	}
+    public DeviceListAdapter(Activity activity, List<Device> devices) {
+        init(activity, devices);
+    }
 
-	private void init(Activity activity, List<Device> devices) {
-		this.activity = activity;
-		this.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
-		if (devices == null) {
-			loadFromDao();
-		} else {
-			this.devices = new ArrayList<Device>(devices);
-		}
-	}
-	
-	@Override
-	public int getCount() {
-		return devices.size();
-	}
+    private void init(Activity activity, List<Device> devices) {
+        this.activity = activity;
+        this.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        
+        if (devices == null) {
+            loadFromDao();
+        } else {
+            this.devices = new ArrayList<Device>(devices);
+        }
+    }
+    
+    @Override
+    public int getCount() {
+        return devices.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return this.devices.get(position);
-	}
+    @Override
+    public Object getItem(int position) {
+        return this.devices.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		String line1, line2;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        String line1, line2;
         View view;
         TextView text;
 
@@ -88,14 +88,14 @@ public class DeviceListAdapter extends BaseAdapter {
         }
         
         int numDevices = this.devices.size();
-    	if ((position >= 0) && (position < numDevices)) {
-    		line1 = this.devices.get(position).getHeadline();
-        	line2 = "" + this.devices.get(position).getDescription();
-    	} else {
-        	// this never happens
-        	line1 = "";
-        	line2 = "";
-    	}
+        if ((position >= 0) && (position < numDevices)) {
+            line1 = this.devices.get(position).getHeadline();
+            line2 = "" + this.devices.get(position).getDescription();
+        } else {
+            // this never happens
+            line1 = "";
+            line2 = "";
+        }
         
         text = (TextView) view.findViewById(android.R.id.text1);
         text.setText(line1);
@@ -105,27 +105,27 @@ public class DeviceListAdapter extends BaseAdapter {
 
         return view;
     }
-	
-	public void addDevice(Device device) {
-		int idx;
-		if ((idx = devices.indexOf(device)) != -1) {
-			// overwrite an existing element, if the specified
-			// device already matches one in our list.
-			devices.set(idx, device);
-		} else {
-			devices.add(device);
-		}
-		notifyDataSetChanged();
-	}
-	
-	public void clear() {
-		devices.clear();
-		notifyDataSetChanged();
-	}
-	
-	public void loadFromDao() {
-		DeviceDao deviceDao = MoteContext.getInstance(activity).getDeviceDao();
-		this.devices = new ArrayList<Device>(deviceDao.getAllDevices());
-		notifyDataSetChanged();
-	}
+    
+    public void addDevice(Device device) {
+        int idx;
+        if ((idx = devices.indexOf(device)) != -1) {
+            // overwrite an existing element, if the specified
+            // device already matches one in our list.
+            devices.set(idx, device);
+        } else {
+            devices.add(device);
+        }
+        notifyDataSetChanged();
+    }
+    
+    public void clear() {
+        devices.clear();
+        notifyDataSetChanged();
+    }
+    
+    public void loadFromDao() {
+        DeviceDao deviceDao = MoteContext.getInstance(activity).getDeviceDao();
+        this.devices = new ArrayList<Device>(deviceDao.getAllDevices());
+        notifyDataSetChanged();
+    }
 }

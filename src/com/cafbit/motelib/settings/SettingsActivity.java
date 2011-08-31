@@ -32,7 +32,7 @@ import android.widget.Toast;
 // http://www.kaloer.com/android-preferences
 
 public class SettingsActivity extends PreferenceActivity {
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -43,15 +43,15 @@ public class SettingsActivity extends PreferenceActivity {
         Preference devicesPref = (Preference) findPreference("devicesPref");
         devicesPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-            	/*
+                /*
                 Toast.makeText(getBaseContext(),
                                 "Show devices...",
                                 Toast.LENGTH_LONG).show();
                                 */
-            	
+                
 
-            	Intent intent = new Intent(SettingsActivity.this, DevicesActivity.class);
-            	startActivity(intent);
+                Intent intent = new Intent(SettingsActivity.this, DevicesActivity.class);
+                startActivity(intent);
 
                 /*
                 SharedPreferences customSharedPreference = getSharedPreferences(
@@ -68,29 +68,29 @@ public class SettingsActivity extends PreferenceActivity {
         
         Preference resetPref = (Preference) findPreference("resetPref");
         resetPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				
-				AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-				builder.setPositiveButton("OK", new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-				        MoteContext moteContext = MoteContext.getInstance(SettingsActivity.this);
-						moteContext.coldReset();
-		                Toast.makeText(getBaseContext(),
-	                        "Resetting to factory defaults...",
-	                        Toast.LENGTH_LONG).show();
-		                SettingsActivity.this.finish();
-					}
-				});
-				builder.setNegativeButton("Cancel", null);
-				AlertDialog alertDialog = builder.create();
-				alertDialog.setTitle("Are you sure?");
-				alertDialog.setMessage("Are you sure you want to erase all configured devices, components, and other settings?");
-				alertDialog.show();
-				
-				return true;
-			}
-		});
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setPositiveButton("OK", new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MoteContext moteContext = MoteContext.getInstance(SettingsActivity.this);
+                        moteContext.coldReset();
+                        Toast.makeText(getBaseContext(),
+                            "Resetting to factory defaults...",
+                            Toast.LENGTH_LONG).show();
+                        SettingsActivity.this.finish();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setTitle("Are you sure?");
+                alertDialog.setMessage("Are you sure you want to erase all configured devices, components, and other settings?");
+                alertDialog.show();
+                
+                return true;
+            }
+        });
     }
 }

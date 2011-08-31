@@ -20,7 +20,7 @@ package com.cafbit.motelib.discovery;
 import com.cafbit.netlib.dns.DNSMessage;
 
 public interface MDNSDiscoveryHandler {
-	public void start();
-	public void handleMessage(DNSMessage message);
-	public void stop();
+    public void start();
+    public void handleMessage(DNSMessage message);
+    public void stop();
 }

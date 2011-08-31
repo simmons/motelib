@@ -30,11 +30,11 @@ import android.content.Context;
 import android.view.View;
 
 public interface DeviceClass {
-	public String getDeviceCode();
-	public String getDeviceName();
-	public String getDeviceDescription();
-	public Class<? extends Device> getDeviceType();
-	public View createDeviceSetupView(Context context, Device device, boolean isUpdate, OnDeviceChange onDeviceChange, DeviceSetupState deviceSetupState);
-	public ReceiverThread getCustomDiscoveryReceiverThread(NetworkManagerThread networkManager) throws IOException;
-	public MDNSDiscoveryHandler getMDNSDiscoveryHandler(DiscoveryManagerThread networkManager) throws IOException;
+    public String getDeviceCode();
+    public String getDeviceName();
+    public String getDeviceDescription();
+    public Class<? extends Device> getDeviceType();
+    public View createDeviceSetupView(Context context, Device device, boolean isUpdate, OnDeviceChange onDeviceChange, DeviceSetupState deviceSetupState);
+    public ReceiverThread getCustomDiscoveryReceiverThread(NetworkManagerThread networkManager) throws IOException;
+    public MDNSDiscoveryHandler getMDNSDiscoveryHandler(DiscoveryManagerThread networkManager) throws IOException;
 }

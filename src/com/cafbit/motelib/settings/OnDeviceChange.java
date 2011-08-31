@@ -20,6 +20,6 @@ package com.cafbit.motelib.settings;
 import com.cafbit.motelib.model.Device;
 
 public interface OnDeviceChange {
-	void onAddDevice(Device device);
-	void onUpdateDevice(Device device);
+    void onAddDevice(Device device);
+    void onUpdateDevice(Device device);
 }

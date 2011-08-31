@@ -36,42 +36,42 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 class DeviceClassListAdapter extends BaseAdapter {
-	
-	private Activity activity;
-	private LayoutInflater inflater;
-	private List<DeviceClass> deviceClasses;
-	
-	private DeviceDao deviceDao;
-	
-	public DeviceClassListAdapter(Activity activity) {
-		init(activity, false);
-	}
+    
+    private Activity activity;
+    private LayoutInflater inflater;
+    private List<DeviceClass> deviceClasses;
+    
+    private DeviceDao deviceDao;
+    
+    public DeviceClassListAdapter(Activity activity) {
+        init(activity, false);
+    }
 
-	private void init(Activity activity, boolean showAddNewDevices) {
-		this.activity = activity;
-		this.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.deviceDao = MoteContext.getInstance(activity).getDeviceDao();
-		this.deviceClasses = deviceDao.getAllDeviceClasses();
-	}
+    private void init(Activity activity, boolean showAddNewDevices) {
+        this.activity = activity;
+        this.inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.deviceDao = MoteContext.getInstance(activity).getDeviceDao();
+        this.deviceClasses = deviceDao.getAllDeviceClasses();
+    }
 
-	@Override
-	public int getCount() {
-		return this.deviceClasses.size();
-	}
+    @Override
+    public int getCount() {
+        return this.deviceClasses.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return this.deviceClasses.get(position);
-	}
+    @Override
+    public Object getItem(int position) {
+        return this.deviceClasses.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		String line1, line2;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        String line1, line2;
         View view;
         TextView text;
 
@@ -83,12 +83,12 @@ class DeviceClassListAdapter extends BaseAdapter {
         
         int numDevices = this.deviceClasses.size();
         if (position < numDevices) {
-        	line1 = this.deviceClasses.get(position).getDeviceName();
-        	line2 = "" + this.deviceClasses.get(position).getDeviceDescription();
+            line1 = this.deviceClasses.get(position).getDeviceName();
+            line2 = "" + this.deviceClasses.get(position).getDeviceDescription();
         } else {
-        	// this never happens
-        	line1 = "";
-        	line2 = "";
+            // this never happens
+            line1 = "";
+            line2 = "";
         }
         
         text = (TextView) view.findViewById(android.R.id.text1);

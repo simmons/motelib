@@ -39,36 +39,36 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DiscoveryActivity extends Activity implements CommandListener {
-	
-	public static final String TAG = "Discovery";
-	
-	private ListView listView;
-	private DiscoveryCommandHandler discoveryCommandHandler =
-		new DiscoveryCommandHandler(this);
-	private DiscoveryManagerThread discoveryManagerThread;
-	private DeviceListAdapter deviceListAdapter;
+    
+    public static final String TAG = "Discovery";
+    
+    private ListView listView;
+    private DiscoveryCommandHandler discoveryCommandHandler =
+        new DiscoveryCommandHandler(this);
+    private DiscoveryManagerThread discoveryManagerThread;
+    private DeviceListAdapter deviceListAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.discover);
-		listView = (ListView)this.findViewById(R.id.list);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Device device = 
-					(Device) parent.getItemAtPosition(position);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.discover);
+        listView = (ListView)this.findViewById(R.id.list);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Device device = 
+                    (Device) parent.getItemAtPosition(position);
 
-	        	Intent intent = new Intent(DiscoveryActivity.this, AddDeviceActivity.class);
-	        	
-	        	int deviceId = MoteContext.getInstance(DiscoveryActivity.this).storeObject(device);
-	        	intent.putExtra("discovered_device_ref", deviceId);
-	        	startActivity(intent);
-	        	finish();
-			}
-		});
-	}
-	
+                Intent intent = new Intent(DiscoveryActivity.this, AddDeviceActivity.class);
+                
+                int deviceId = MoteContext.getInstance(DiscoveryActivity.this).storeObject(device);
+                intent.putExtra("discovered_device_ref", deviceId);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+    
     /**
      * This is called when the user resumes using the activity
      * after using other programs (and at activity creation time).
@@ -78,61 +78,61 @@ public class DiscoveryActivity extends Activity implements CommandListener {
      * method to initialize the packet list and start the
      * network thread.
      */
-	@Override
-	protected void onResume() {
-		super.onResume();
-		
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
         deviceListAdapter = new DeviceListAdapter(this,Collections.<Device>emptyList());
         listView.setAdapter(deviceListAdapter);
 
-		if (discoveryManagerThread != null) {
-			Log.e(TAG, "discoveryManagerThread should be null!");
-			discoveryManagerThread.ipc.quit();
-		}
+        if (discoveryManagerThread != null) {
+            Log.e(TAG, "discoveryManagerThread should be null!");
+            discoveryManagerThread.ipc.quit();
+        }
         discoveryManagerThread = new DiscoveryManagerThread(this, discoveryCommandHandler);
         discoveryManagerThread.start();
-	}
+    }
 
-	/**
-	 * This is called when the user leaves the activity to run
-	 * another program.  We stop the network thread when this
-	 * happens.
-	 */
-	@Override
-	protected void onPause() {
-		super.onPause();
-		
-		deviceListAdapter.clear();
-		deviceListAdapter = null;
-		
-		if (discoveryManagerThread == null) {
-			Log.e(TAG, "discoveryManagerThread should not be null!");
-			return;
-		}
-		discoveryManagerThread.ipc.quit();
-		discoveryManagerThread = null;
-	}
+    /**
+     * This is called when the user leaves the activity to run
+     * another program.  We stop the network thread when this
+     * happens.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        
+        deviceListAdapter.clear();
+        deviceListAdapter = null;
+        
+        if (discoveryManagerThread == null) {
+            Log.e(TAG, "discoveryManagerThread should not be null!");
+            return;
+        }
+        discoveryManagerThread.ipc.quit();
+        discoveryManagerThread = null;
+    }
 
-	
-	@Override
-	public void onCommand(Command command) {
-		if (command instanceof DeviceCommand) {
-			DeviceCommand deviceCommand = (DeviceCommand)command;
-			deviceListAdapter.addDevice(deviceCommand.device);
-		}
-	}
+    
+    @Override
+    public void onCommand(Command command) {
+        if (command instanceof DeviceCommand) {
+            DeviceCommand deviceCommand = (DeviceCommand)command;
+            deviceListAdapter.addDevice(deviceCommand.device);
+        }
+    }
 
-	public class DiscoveryCommandHandler extends CommandHandler {
-		public DiscoveryCommandHandler(CommandListener commandListener) {
-			super(commandListener);
-		}
-	}
-	
-	public static class DeviceCommand implements Command {
-		public Device device;
-		public DeviceCommand(Device device) {
-			this.device = device;
-		}
-	}
+    public class DiscoveryCommandHandler extends CommandHandler {
+        public DiscoveryCommandHandler(CommandListener commandListener) {
+            super(commandListener);
+        }
+    }
+    
+    public static class DeviceCommand implements Command {
+        public Device device;
+        public DeviceCommand(Device device) {
+            this.device = device;
+        }
+    }
 
 }

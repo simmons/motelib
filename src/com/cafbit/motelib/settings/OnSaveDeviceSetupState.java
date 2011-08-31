@@ -18,5 +18,5 @@
 package com.cafbit.motelib.settings;
 
 public interface OnSaveDeviceSetupState {
-	public DeviceSetupState onSaveDeviceSetupState();
+    public DeviceSetupState onSaveDeviceSetupState();
 }
