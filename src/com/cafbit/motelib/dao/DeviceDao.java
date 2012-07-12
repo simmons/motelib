@@ -97,7 +97,7 @@ public class DeviceDao {
     public void addDevice(Device device) {
         // check for duplicates
         for (Device d : getAllDevices()) {
-            if (device.address.equals(d.address) && device.deviceClass.equals(d.deviceClass)) {
+            if (device.equals(d)) {
                 throw new RuntimeException("Another "+moteContext.getDeviceWord(device.deviceClass, false, false)+" is already configured at this address.");
             }
         }
